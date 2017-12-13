@@ -15,7 +15,18 @@ io.on('connection',(socket)=>{
   socket.on('disconnect',()=>{
     console.log('disconnected from client')
   })
+  // socket.emit('newEmail',{from:"prashant@123.com",text:"how are you",createdat:123})
+  // socket.on('createEmail',function(email){
+  //   console.log('Create New Email',email)
+  // })
+
+socket.emit('newMessage',{from:"prashant",text:"how are you",createdat:123})
+socket.on('createMessage',function(message){
+  console.log('Create New Message',message)
 })
+
+})
+
 
 app.use(express.static(publicPath))
 
