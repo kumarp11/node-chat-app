@@ -32,12 +32,12 @@ socket.broadcast.emit('newMessage',generateMessage(
   "New user joined the chat room"
 ))
 
-socket.on('createMessage',function(message){
-  console.log('Create New Message',message)
+socket.on('createMessage',function(message,callback){
+//  console.log('Create New Message',message)
   io.emit('newMessage',generateMessage(
     message.from,
     message.text
-  ))
+  )),callback('This is from Server')
 
   //
   // socket.broadcast.emit('newMessage',{
