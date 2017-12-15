@@ -17,6 +17,6 @@ socket.on('disconnect',function(){
 socket.on('newMessage',function(message){
   console.log('Got new message',message)
 })
-
-socket.emit('createMessage',
-  {from:"kalpna",text:"what's up"})
+// 
+// socket.emit('createMessage',
+//   {from:"kalpna",text:"what's up"})

@@ -19,10 +19,16 @@ io.on('connection',(socket)=>{
   // socket.on('createEmail',function(email){
   //   console.log('Create New Email',email)
   // })
-
-socket.emit('newMessage',{from:"prashant",text:"how are you",createdat:123})
+// 
+// socket.emit('newMessage',{from:"prashant",text:"how are you",createdat:123})
 socket.on('createMessage',function(message){
   console.log('Create New Message',message)
+  io.emit('newMessage',{
+    from:message.from,
+    text:message.text,
+    createdat:new Date().getTime()
+  })
+
 })
 
 })
