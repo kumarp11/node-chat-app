@@ -19,8 +19,18 @@ io.on('connection',(socket)=>{
   // socket.on('createEmail',function(email){
   //   console.log('Create New Email',email)
   // })
-// 
+//
 // socket.emit('newMessage',{from:"prashant",text:"how are you",createdat:123})
+
+socket.emit('newMessage',{from:"Admin",text:"Welcome to the chat room"})
+
+
+socket.broadcast.emit('newMessage',{
+  from:"Admin",
+  text:"New user joined the chat room",
+  createdat:new Date().getTime()
+})
+
 socket.on('createMessage',function(message){
   console.log('Create New Message',message)
   io.emit('newMessage',{
@@ -28,6 +38,13 @@ socket.on('createMessage',function(message){
     text:message.text,
     createdat:new Date().getTime()
   })
+
+  //
+  // socket.broadcast.emit('newMessage',{
+  //   from:message.from,
+  //   text:message.text,
+  //   createdat:new Date().getTime()
+  // })
 
 })
 
