@@ -19,7 +19,10 @@ socket.on('newMessage',function(message){
   var li=jQuery('<li></li>');
   li.text(`${message.from}:${message.text}`);
   jQuery('#messages').append(li);
-})
+});
+
+
+
 //
 // socket.emit('createMessage',
 //   {from:"kalpna",text:"what's up"},
@@ -36,4 +39,27 @@ jQuery('#message-form').on('submit',function(e){
   },function(){
 
   })
-})
+});
+
+jQuery('#send-location').on('click',function(){
+  if(!navigator.geolocation)
+  {
+    return alert('Your browser does not support geolocation')
+  }
+  navigator.geolocation.getCurrentPosition(function(position){
+    socket.emit('createNewLocation',{latitude:position.coords.latitude,longitude:position.coords.longitude})
+  },function(){
+    alert('Unable to fetch the location')
+  })
+});
+
+
+socket.on('newLocationMessage',function(message){
+   var li=jQuery('<li></li>');
+   var a=jQuery('<a target="_blank">My location</a>')
+   li.text(`${message.from}`)
+   a.attr('href',message.url)
+  li.append(a);
+ jQuery('#messages').append(li);
+  //console.log(message)
+});

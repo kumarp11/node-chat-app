@@ -9,7 +9,7 @@ const port=process.env.PORT || 3000
 var app=express()
 var server=http.createServer(app)
 var io=socketIO(server)
-var {generateMessage}=require('./utils/message.js')
+var {generateMessage,generateLocationMessage}=require('./utils/message.js')
 
 io.on('connection',(socket)=>{
   console.log('New user connected')
@@ -38,19 +38,20 @@ socket.on('createMessage',function(message,callback){
     message.from,
     message.text
   )),callback('This is from Server')
-
+})
   //
   // socket.broadcast.emit('newMessage',{
   //   from:message.from,
   //   text:message.text,
   //   createdat:new Date().getTime()
   // })
-
+  socket.on('createNewLocation',function(cords){
+    io.emit('newLocationMessage',generateLocationMessage(
+      'Admin',
+    cords.latitude,cords.longitude
+    ))
 })
-
 })
-
-
 app.use(express.static(publicPath))
 
 server.listen(port,()=>{
