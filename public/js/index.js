@@ -37,7 +37,7 @@ jQuery('#message-form').on('submit',function(e){
   socket.emit('createMessage',{
     from:"kalpna",text:jQuery('[name=message]').val()
   },function(){
-
+jQuery('[name=message]').val('')
   })
 });
 
@@ -46,10 +46,14 @@ jQuery('#send-location').on('click',function(){
   {
     return alert('Your browser does not support geolocation')
   }
+  jQuery('#send-location').attr('disabled','disabled').text('send location..')
   navigator.geolocation.getCurrentPosition(function(position){
+      jQuery('#send-location').removeAttr('disabled').text('send location')
     socket.emit('createNewLocation',{latitude:position.coords.latitude,longitude:position.coords.longitude})
   },function(){
+        jQuery('#send-location').removeAttr('disabled').text('send location')
     alert('Unable to fetch the location')
+
   })
 });
 
